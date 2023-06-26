@@ -4,7 +4,6 @@ package com.example.reactback.controller;
 import com.example.reactback.controller.DTOS.ModelResponseDTO;
 import com.example.reactback.gateway.ModelGateway;
 import com.example.reactback.mapper.MeMapper;
-import com.example.reactback.mapper.ModelMapper;
 import com.example.reactback.model.Model;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
