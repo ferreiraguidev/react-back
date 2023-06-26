@@ -2,7 +2,6 @@ package com.example.reactback.gateway;
 
 
 import com.example.reactback.controller.DTOS.ModelRequestDTO;
-import com.example.reactback.mapper.ModelMapper;
 import com.example.reactback.model.Model;
 import com.example.reactback.repository.ModelRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,7 @@ public class ModelGateway {
         return repository.save(model);
     }
 
-    public List<Model> listAll(){
+    public List<Model> listAll() {
         return repository.findAll();
     }
 
@@ -35,23 +34,25 @@ public class ModelGateway {
         val byId = repository.findById(requestDTO.id());
 
         if (byId.isEmpty()) {
-            throw new IllegalArgumentException("Coudnt find any correspondent id");
+            throw new IllegalArgumentException("ID inexistente!");
         }
-        val model = ModelMapper.toDomain(requestDTO);
 
+        val model = Model.builder()
+                .id(requestDTO.id())
+                .name(requestDTO.name())
+                .login(requestDTO.login())
+                .email(requestDTO.email())
+                .password(requestDTO.password())
+                .passwordConfirmation(requestDTO.passwordConfirmation())
+                .build();
         return repository.save(model);
     }
-
-//    public Model findByName(final String name) {
-//        return repository.findByName(name);
-//
-//    }
 
     public void delete(final Long id) {
         repository.deleteById(id);
     }
 
-
+    // same as FindByName - in order to update
     public Model findByLogin(final String login) {
         return repository.findByLoginIgnoreCase(login);
     }
