@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.http.HttpStatusCode;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -16,7 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Model {
+public class Model{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -26,8 +27,10 @@ public class Model {
 
     private String email;
 
+    private String login;
+
     private String password;
 
-    private String description;
+    private String passwordConfirmation;
 
 }
