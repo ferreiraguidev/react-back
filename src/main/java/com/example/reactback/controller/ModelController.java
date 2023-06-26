@@ -13,15 +13,16 @@ import java.util.List;
 
 import static com.example.reactback.mapper.ModelMapper.toDomain;
 import static com.example.reactback.mapper.ModelMapper.toDto;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.*;
 
 
+@CrossOrigin("*")
 @RequiredArgsConstructor
-@RestController()
+@RestController
+@RequestMapping
 public class ModelController {
 
-    private ModelGateway modelGateway;
+    private final ModelGateway modelGateway;
 
 
     @ResponseStatus(CREATED)
@@ -33,8 +34,27 @@ public class ModelController {
     }
 
     @ResponseStatus(OK)
-    @GetMapping("findAll")
-    public List<Model> listAll(){
+    @GetMapping("users")
+    public @ResponseBody List<Model> listAll() {
         return modelGateway.listAll();
     }
+
+    @ResponseStatus(OK)
+    @GetMapping("user/{id}")
+    public Model findById(final @PathVariable Long id) {
+        return modelGateway.findById(id);
+    }
+
+    @ResponseStatus(ACCEPTED)
+    @PutMapping("/edit")
+    public Model update(@RequestBody final ModelRequestDTO requestDTO) {
+        return modelGateway.update(requestDTO);
+    }
+
+    @ResponseStatus(NO_CONTENT)
+    @DeleteMapping("delete/{id}")
+    public void delete(final @PathVariable Long id) {
+        modelGateway.delete(id);
+    }
+
 }
